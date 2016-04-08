@@ -10,3 +10,8 @@ configuration: Release
 # Restore NuGet Packages
 before_build:
   - nuget restore
+
+# Run Tests
+test:
+  assemblies:
+    - '**\*.Tests.dll'
