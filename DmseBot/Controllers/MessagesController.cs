@@ -5,6 +5,10 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using DmseBot.Dialogs;
+using DmseBot.Forms;
+using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.FormFlow;
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Connector.Utilities;
 using Newtonsoft.Json;
@@ -14,6 +18,11 @@ namespace DmseBot
     [BotAuthentication]
     public class MessagesController : ApiController
     {
+        internal static IDialog<RequestInformationForm> MakeFormDialog()
+        {
+            return FormDialog.FromForm(RequestInformationForm.BuildForm);
+        }
+
         /// <summary>
         /// POST: api/Messages
         /// Receive a message from a user and reply to it
@@ -22,11 +31,8 @@ namespace DmseBot
         {
             if (message.Type == "Message")
             {
-                // calculate something for us to return
-                int length = (message.Text ?? string.Empty).Length;
-
                 // return our reply to the user
-                return message.CreateReplyMessage($"Hello, World!");
+                return await Conversation.SendAsync(message, () => new RootDialog(MakeFormDialog));
             }
             else
             {
