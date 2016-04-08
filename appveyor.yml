@@ -1,0 +1,12 @@
+
+# Do not build the gh-pages branch
+branches:
+  except:
+    - gh-pages
+
+# Environment Config
+configuration: Release
+
+# Restore NuGet Packages
+before_build:
+  - nuget restore
