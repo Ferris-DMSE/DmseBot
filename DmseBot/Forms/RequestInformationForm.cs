@@ -23,11 +23,17 @@ namespace DmseBot.Forms
         [Prompt("What {&} do you want? {||}")]
         public InformationOptions? Information;
 
-        public static IForm<RequestInformationForm> BuildForm()
+        public static IForm<RequestInformationForm> BuildForm(bool welcome)
         {
-            return new FormBuilder<RequestInformationForm>()
-                .Message("Welcome to the Digital Media Software Engineering bot! What can I help you out with today?")
-                .Field(nameof(RequestInformationForm.Information))
+            IFormBuilder<RequestInformationForm> formBuilder = new FormBuilder<RequestInformationForm>();
+
+            if (welcome)
+            {
+                formBuilder = formBuilder.Message("Welcome to the Digital Media Software Engineering bot!");
+            }
+
+            return formBuilder
+                .Field(nameof(Information))
                 .Build();
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using DmseBot.Forms;
 using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.FormFlow;
 using Microsoft.Bot.Connector;
 
 namespace DmseBot.Dialogs
@@ -13,16 +14,13 @@ namespace DmseBot.Dialogs
     [Serializable]
     public class RootDialog : IDialog
     {
-        public Func<IDialog<RequestInformationForm>> FormDialog { get; set; }
-
-        public RootDialog(Func<IDialog<RequestInformationForm>> formDialog)
+        public RootDialog()
         {
-            FormDialog = formDialog;
         }
 
         public async Task StartAsync(IDialogContext context)
         {
-            context.Call<RequestInformationForm>(FormDialog(), AfterForm);
+            context.Call<RequestInformationForm>(FormDialog.FromForm(() => RequestInformationForm.BuildForm(true)), AfterForm);
         }
 
         private async Task AfterForm(IDialogContext context, IAwaitable<RequestInformationForm> result)
@@ -37,7 +35,7 @@ namespace DmseBot.Dialogs
 
         private async Task AfterResponse(IDialogContext context, IAwaitable<string> result)
         {
-            context.Call<RequestInformationForm>(FormDialog(), AfterForm);
+            context.Call<RequestInformationForm>(FormDialog.FromForm(() => RequestInformationForm.BuildForm(false)), AfterForm);
         }
     }
 }
