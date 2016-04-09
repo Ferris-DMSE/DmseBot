@@ -18,10 +18,6 @@ namespace DmseBot
     [BotAuthentication]
     public class MessagesController : ApiController
     {
-        internal static IDialog<RequestInformationForm> MakeFormDialog()
-        {
-            return FormDialog.FromForm(RequestInformationForm.BuildForm);
-        }
 
         /// <summary>
         /// POST: api/Messages
@@ -32,7 +28,7 @@ namespace DmseBot
             if (message.Type == "Message")
             {
                 // return our reply to the user
-                return await Conversation.SendAsync(message, () => new RootDialog(MakeFormDialog));
+                return await Conversation.SendAsync(message, () => new RootDialog());
             }
             else
             {
