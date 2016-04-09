@@ -99,8 +99,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="default.htm" />
+    <Content Include="css\site.css" />
     <Content Include="Global.asax" />
+    <Content Include="default.html" />
     <Content Include="privacypolicy.htm" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -130,7 +131,10 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="fonts\" />
+    <Folder Include="js\" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Information.resx">
       <Generator>ResXFileCodeGenerator</Generator>
