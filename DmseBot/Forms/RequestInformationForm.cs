@@ -20,7 +20,7 @@ namespace DmseBot.Forms
         /// <summary>
         /// The information that should be retrieved.
         /// </summary>
-        [Prompt("What {&} do you want? {||}")]
+        [Prompt("What {&} can I get you? {||}")]
         public InformationOptions? Information;
 
         public static IForm<RequestInformationForm> BuildForm(bool welcome)
